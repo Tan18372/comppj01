@@ -1,0 +1,86 @@
+class Student:
+
+    def __init__( self, name, sid): #define the self var
+        self.name = name
+        self.sid = sid
+        self.all_score = []
+        self.total_score = 0
+
+    #getters
+
+    def get_name(self):
+        return self.name
+    
+    def get_sid(self):
+        return self.get_sid
+    
+    
+    
+    def get_all_score(self):
+        return self.all_score
+ 
+    def get_total_score(self): #get total score of students
+        return self.total_score
+    
+    
+    #setters
+    def set_name(self, new_name):
+        self.name = new_name
+
+        
+    def add_new_score(self, new_course_score):
+        self.all_score.append(new_course_score)
+        self.total_score = sum(self.all_score)
+
+class Score:
+    
+    def __init__(self):
+        self.students = {}
+        
+    def add_student(self, name, sid):
+        if sid in self.students:
+            print("The student ID", sid,  "already exists!")
+        else:
+            new_student = Student(name, sid)
+            self.students[sid] = new_student
+            print("Student registered")
+    
+    def update_student_score(self, sid, score):
+        if sid not in self.students:
+            print("Invalid student ID!", sid)
+        else:
+            student = self.students[sid]
+            student.add_new_score(int(score)) 
+            
+    def udpate_student_name(self, sid, newname):
+        if sid not in self.students:
+            print("Invalid student ID!", sid)
+    #queue
+    ########
+    #arbitrary function
+class Queue(Student):
+    def __init__(self,name,sid):
+        super()._init_(name,sid)
+        self.queue = [self.name[self.sid]]
+        
+    def size(self):
+        return len(self.queue)
+    def isEmpty(self):
+        if self.size() == 0:
+            return True
+        else:
+            return False
+        
+    def enQueue(self, value):
+        self.queue.append(value)
+        
+    def deQueue(self):
+        
+        if not self.isEmpty():
+            self.queue.pop(0)
+        else:
+            raise IndexError("Attempt to dequeue an empty stack")
+    def print_queue(self):
+        
+        for i in range(len(self.queue)):
+            print(f"Name: {self.queue[i].get_name()}, ID: {self.queue[i].get_sid()}\n")
