@@ -27,7 +27,12 @@ class Student:
     def set_name(self, new_name):
         self.name = new_name
 
-        
+    def set_sid(self, new_sid):
+        if isinstance(new_sid,int) and len(str(new_sid)) == 8:
+            self.sid = new_sid
+        else:
+            print("Error: Sid must be an 8-digit number.")
+  
     def add_new_score(self, new_course_score):
         self.all_score.append(new_course_score)
         self.total_score = sum(self.all_score)
