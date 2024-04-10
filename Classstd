@@ -1,52 +1,48 @@
+sorce_list=[]
+
 class Student:
-
-    def __init__( self, name, sid): #define the self var
-        self.name = name
-        self.sid = sid
-        self.all_score = [] 
-        self.total_score = 0
-
-    #getters
+    def __init__(self,name,sid,sorce):
+        self.name=name
+        self.sid=sid
+        self.sorce=sorce
+        sorce_list.append(self.sorce)
 
     def get_name(self):
+        #print(self.name)
         return self.name
     
     def get_sid(self):
-        return self.get_sid
+        #print(self.sid)
+        return self.sid
     
-    
-    
-    def get_all_score(self):
-        return self.all_score
- 
-    def get_total_score(self): #get total score of students
-        return self.total_score
-    
-    
-    #setters
-    def set_name(self, new_name):
-        self.name = new_name
+    def get_sorce(self):
+        #print(self.sorce)
+        return self.sorce
 
-    def set_sid(self, new_sid):
-        if isinstance(new_sid,int) and len(str(new_sid)) == 8:
-            self.sid = new_sid
-        else:
-            print("Error: Sid must be an 8-digit number.")
-  
-    def add_new_score(self, new_course_score):
-        self.all_score.append(new_course_score)
-        self.total_score = sum(self.all_score)
+    def get_new_name(self,new_name):
+        self.name=new_name
+        #print(self.name)
+
+    def get_new_sid(self,new_sid):
+        self.sid=new_sid
+        #print(self.sid)
+
+    def get_new_sorce(self,new_socre):
+        self.sorce=new_socre
+        sorce_list.append(new_socre)
+        sorce_list.pop(0)
+        print(self.sorce)
 
 class Score:
     
     def __init__(self):
         self.students = {}
         
-    def add_student(self, name, sid):
+    def add_student(self, name, sid, sorce):
         if sid in self.students:
-            print("The student ID", sid,  "already exists!")
+            print("The student ID", sid, "already exists!")
         else:
-            new_student = Student(name, sid)
+            new_student = Student(name, sid, sorce)
             self.students[sid] = new_student
             print("Student registered")
     
@@ -60,36 +56,48 @@ class Score:
     def udpate_student_name(self, sid, newname):
         if sid not in self.students:
             print("Invalid student ID!", sid)
-    #queue
-    ########
-    #arbitrary function
-class Queue(Student):
-    def __init__(self,name,sid):
-        super()._init_(name,sid)
-        self.queue = [self.name[self.sid]]
-        
-    def size(self):
-        return len(self.queue)
-    def isEmpty(self):
-        if self.size() == 0:
-            return True
-        else:
-            return False
-        
-    def enQueue(self, value):
-        self.queue.append(value)
-        
-    def deQueue(self):
-         if not self.isEmpty():
-            self.queue.pop(0)
-        else:
-            raise IndexError("Attempt to dequeue an empty stack")
-    def print_queue(self):
-        for i in range(len(self.queue)):
-            print(f"Name: {self.queue[i].get_name()}, ID: {self.queue[i].get_sid()}\n")
-    def print_queue_info(self):
-        for i in range(len(self.queue)):
-            student = self.queue[i]
-            print(f"Name: {student.get_name()}, ID: {student.get_sid()}")
-            print(f"All Scores: {student.get_all_score()}")
-            print(f"Total Score: {student.get_total_score()}\n")
+
+if __name__=='__main__':
+    class Stack(Student):
+        def __init__(self):
+            self.stack = []
+
+        def size(self):
+            return len(self.stack)
+
+        def isEmpty(self):
+            if self.size() == 0:
+                return True
+            else:
+                return False
+
+        def push(self, value):
+            self.stack.append(value)
+            self.stack
+
+        def pop(self):
+            if not self.isEmpty():
+                pop_value = self.stack.pop()
+                print("Popped value is", pop_value)
+            else:
+                raise IndexError("Attempt to pop an empty stack")
+
+        def print_stack(self):
+            for i in range(len(self.stack)):
+                print(self.stack[i])
+         
+    
+
+ST=Student('Lima',1234567,32)
+print(ST.get_sorce)
+print(sorce_list)   
+ST.get_new_sorce(90)
+print(sorce_list)
+
+
+P=Score()
+P.add_student('Poco',1728493,40)
+
+S=Stack()
+S.push(ST)
+S.print_stack()
