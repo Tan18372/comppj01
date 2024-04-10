@@ -1,11 +1,11 @@
-sorce_list=[]
+score_list=[]
 
 class Student:
-    def __init__(self,name,sid,sorce):
+    def __init__(self,name,sid,score): #define the name of the self inherantance
         self.name=name
         self.sid=sid
-        self.sorce=sorce
-        sorce_list.append(self.sorce)
+        self.score=score
+        score_list.append(self.score)
 
     def get_name(self):
         #print(self.name)
@@ -25,13 +25,13 @@ class Student:
 
     def get_new_sid(self,new_sid):
         self.sid=new_sid
-        #print(self.sid)
+        #print(self.sid) for the development
 
-    def get_new_sorce(self,new_socre):
-        self.sorce=new_socre
-        sorce_list.append(new_socre)
-        sorce_list.pop(0)
-        print(self.sorce)
+    def get_new_score(self,new_score):
+        self.score=new_score
+        score_list.append(new_score)
+        score_list.pop(0)
+        print(self.score)
 
 class Score:
     
@@ -88,11 +88,15 @@ if __name__=='__main__':
          
     
 
-ST=Student('Lima',1234567,32)
+ST = Student('Lima',1234567,32)
+ST = Student('Sam', 12435423,90)
+ST = Student('Leo', 12435412,22)
+ST = Student('Peter', 12434323,55)
+ST = Student('Damn', 12435432,23)
 print(ST.get_sorce)
-print(sorce_list)   
-ST.get_new_sorce(90)
-print(sorce_list)
+print(score_list)   
+ST.get_new_score(90)
+print(score_list)
 
 
 P=Score()
