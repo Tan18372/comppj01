@@ -80,13 +80,11 @@ class Queue(Student):
         self.queue.append(value)
         
     def deQueue(self):
-        
-        if not self.isEmpty():
+         if not self.isEmpty():
             self.queue.pop(0)
         else:
             raise IndexError("Attempt to dequeue an empty stack")
     def print_queue(self):
-        
         for i in range(len(self.queue)):
             print(f"Name: {self.queue[i].get_name()}, ID: {self.queue[i].get_sid()}\n")
     def print_queue_info(self):
