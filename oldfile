@@ -1,0 +1,206 @@
+hku = 27 
+cu = 22 
+poly = 17 
+mu = 16 
+
+user_stack = []
+
+def ask_info(): #ask the information of students
+    name = input("Enter your student name: ")
+    stdno = input("Enter your student number: ")
+    gender = input("Enter your gender: ")
+    user_info = {'name': name, 'stdno': stdno, 'gender': gender}
+    user_stack.append(user_info)
+    print("User information added to stack.")
+def show_user_info(): #show the information of students
+    if len(user_stack) == 0:
+        print("No user information found.")
+    else:
+        print("User information in stack:")
+        for user_info in user_stack:
+            print(f"Name: {user_info['name']}, Student no: {user_info['stdno']}, Gender: {user_info['gender']}")
+
+def check_3322_level(chinese, english, math, elective1, elective2, elective3=None):
+    if chinese < 3 or english < 3 or math < 2 or elective1 < 3 or elective2 < 3:
+        return False
+    if elective3 is not None and elective3 < 3:
+        return False
+    return True
+def get_mark(subject):                       
+    while True:
+        try:
+            mark = input(f"Enter your {subject} mark: ")
+            if mark.lower() == 'exit':
+                print("Exiting the program...")
+                quit()
+            mark = int(mark)
+            if 0 <= mark <= 7:
+                return mark
+            else:
+                print(f"Your {subject} score input is wrong. Please enter a number between 0 and 7.")
+        except ValueError:
+            print("Your input is not a number. Please input again in number form.")
+def calculate_bonus(mark):                
+    if mark == 5:
+        return 0.5
+    elif mark == 6:
+        return 1
+    elif mark == 7:
+        return 1.5
+    else:
+        return 0
+def calculate_total_marks(marks):
+    marks.sort(reverse=True)
+    return sum(marks[:5])
+
+ask_info()
+show_user_info()
+
+print('In the dse policy, there would be additional marks for the subject that over 5 to 5**.')
+print('Please enter your mark as 0 if you didnt attend the exam , as 6 if you get 5* and 7 for 5**.')
+bonus_addition = input("Does your university have dse score bonus addition? (yes/no): ")
+while bonus_addition.lower() not in ['yes', 'no', 'exit']:
+    if bonus_addition.lower() == 'exit':
+        print("Exiting the program...")
+        quit()
+    print("Please enter yes or no")
+    bonus_addition = input("Does your university have dse score bonus addition? : ")
+marks = []
+marks.append(get_mark("chinese"))
+chinese_mark = marks[-1]
+
+marks.append(get_mark("english"))
+english_mark = marks[-1]
+
+marks.append(get_mark("math"))
+math_mark = marks[-1]
+
+marks.append(get_mark("elective 1"))
+elective1_mark = marks[-1]
+
+marks.append(get_mark("elective 2"))
+elective2_mark = marks[-1]
+if bonus_addition.lower() == 'yes':
+    for i in range(len(marks)):
+        marks[i] += calculate_bonus(marks[i])
+
+elective3= input("Do you study in Elective 3? (yes/no): ")
+while elective3.lower() not in ['yes', 'no', 'exit']:              
+    if elective3.lower() == 'exit':
+        print("Exiting the program...")
+        quit()
+    print("Please enter yes or no")
+    print('please select whenther you participate in the exam for elective 3 ')
+    elective3 = input("Do you study in Elective 3? : ")
+
+if elective3.lower() == 'yes':
+    marks.append(get_mark("elective 3"))
+    elective3_mark = marks[-1]
+    if bonus_addition.lower() == 'yes':                          
+        marks[-1] += calculate_bonus(elective3_mark)
+
+gen=input("do you pass your generation study?(yes or no) :")
+while gen.lower() not in ['yes','no','exit']:
+    print("Pleae enter yes or no")
+    gen=input("do you pass your generation study? :").lower()    
+else:
+    if gen.lower()=="no":
+        print("Sorry, you did not meet the threshold")
+        
+        quit()
+    if gen.lower()=="exit":
+        print("Exiting the program...")
+        quit()
+
+total_marks = calculate_total_marks(marks)
+
+print("Your total marks are: ", total_marks, 'in the dse examination')
+
+print('If you want to calculate the dse score only you can enter exit to exit the program')
+print('The university that you can check is cu polyu hku and mu')
+print('please enter the university name in short form!')
+uni_name = input('What is the uni that you want to ask for: ').lower()
+while uni_name not in ['cu', 'polyu', 'poly u', 'hku', 'hk u', 'mu', 'exit']:
+    if uni_name == 'exit':
+        print("Exiting the program...")
+        quit()
+    if uni_name.isalpha():
+        print('The university that you entered is not available to check now')
+        uni_name = input('What is the uni that you want to ask for: ').lower()
+    else:
+        print("University name should not be a number")
+        uni_name = input('What is the uni that you want to ask for: ').lower()
+if uni_name == 'cu':
+    print('The median marks to enter cu is', cu)
+    if total_marks < cu:
+        print("You still need at least ", (cu - total_marks), "to enter the ", uni_name)
+    elif not check_3322_level(chinese_mark, english_mark, math_mark, elective1_mark, elective2_mark, elective3_mark if elective3.lower() == 'yes' else None):
+        print("Your scores do not meet the 3322 level required for this university.")
+    elif chinese_mark < 3 or english_mark < 3:
+        print("The mark of Chinese/English doesn't fulfill the entry of this university")
+    elif math_mark <2 :
+        print("The mark of maths doesn't fulfill the entry of this university")
+    elif (elective1_mark<3 or elective2_mark<3) and (elective3_mark is None or elective3_mark<3):
+        print("The mark of electives don't fulfill the entry of this university")
+    else:
+        print("Congratulations!")
+        print("According to the statistics from Hong Kong Education Bureau," "in 2021,32% of dse cadidates can go to universty.""In 2021,32% of dse cadidates can go to universty.")
+
+if uni_name == 'polyu':
+    print('The median marks to enter polyu is', poly)
+    if total_marks < poly:
+        print("You still need at least ", (poly - total_marks), "to enter the ", uni_name)
+    elif not check_3322_level(chinese_mark, english_mark, math_mark, elective1_mark, elective2_mark, elective3_mark if elective3.lower() == 'yes' else None):
+        print("Your scores do not meet the 3322 level required for this university.")
+    elif chinese_mark < 3 or english_mark < 3:
+        print("The mark of Chinese/English doesn't fulfill the entry of this university")
+    elif math_mark <2 :
+        print("The mark of maths doesn't fulfill the entry of this university")
+    elif (elective1_mark<3 or elective2_mark<3) and (elective3_mark is None or elective3_mark<3):
+        print("The mark of electives don't fulfill the entry of this university")
+    else:
+        print("Congratulations!")
+        print("According to the statistics from Hong Kong Education Bureau," "in 2021,32% of dse cadidates can go to universty.""In 2021,32% of dse cadidates can go to universty.")
+
+if uni_name == 'hku':
+    print('The median marks to enter cu is', hku)
+    if total_marks < cu:
+        print("You still need at least ", (hku - total_marks), "to enter the ", uni_name)
+    elif not check_3322_level(chinese_mark, english_mark, math_mark, elective1_mark, elective2_mark, elective3_mark if elective3.lower() == 'yes' else None):
+        print("Your scores do not meet the 3322 level required for this university.")
+    elif chinese_mark < 3 or english_mark < 3:
+        print("The mark of Chinese/English doesn't fulfill the entry of this university")
+    elif math_mark <2 :
+        print("The mark of maths doesn't fulfill the entry of this university")
+    elif (elective1_mark<3 or elective2_mark<3) and (elective3_mark is None or elective3_mark<3):
+        print("The mark of electives don't fulfill the entry of this university")
+    else:
+        print("Congratulations!")
+        print("According to the statistics from Hong Kong Education Bureau," "in 2021,32% of dse cadidates can go to universty.""In 2021,32% of dse cadidates can go to universty.")
+
+if uni_name == 'mu':
+    print('The median marks to enter cu is', mu)
+    if total_marks < mu:
+        print("You still need at least ", (mu - total_marks), "to enter the ", uni_name)
+    elif not check_3322_level(chinese_mark, english_mark, math_mark, elective1_mark, elective2_mark, elective3_mark if elective3.lower() == 'yes' else None):
+        print("Your scores do not meet the 3322 level required for this university.")
+    elif chinese_mark < 3 or english_mark < 3:
+        print("The mark of Chinese/English doesn't fulfill the entry of this university")
+    elif math_mark <2 :
+        print("The mark of maths doesn't fulfill the entry of this university")
+    elif (elective1_mark<3 or elective2_mark<3) and (elective3_mark is None or elective3_mark<3):
+        print("The mark of electives don't fulfill the entry of this university")
+    else:
+        print("Congratulations!")
+        print("According to the statistics from Hong Kong Education Bureau," "in 2021,32% of dse cadidates can go to universty.""In 2021,32% of dse cadidates can go to universty.")
+entryrate = input("Do you want to ask for the enrty rate of uni? ")
+while entryrate.lower() not in ['yes','no','exit']:
+    print("Please enter yes or no")
+    entryrate = input("Do you want to ask for the enrty rate of uni? ")
+else:
+    if entryrate.lower()=="exit":
+        print("Exiting the program...")
+        quit()
+    if entryrate.lower() == 'yes':
+        print('This is the entry rate of university:')
+        print('According to the statistics from Hong Kong Education Bureau:\n in 2021,32% of dse cadidates can go to universty. \n In 2023,39.6% of dse cadidates can go to universty.')
