@@ -89,3 +89,9 @@ class Queue(Student):
         
         for i in range(len(self.queue)):
             print(f"Name: {self.queue[i].get_name()}, ID: {self.queue[i].get_sid()}\n")
+    def print_queue_info(self):
+        for i in range(len(self.queue)):
+            student = self.queue[i]
+            print(f"Name: {student.get_name()}, ID: {student.get_sid()}")
+            print(f"All Scores: {student.get_all_score()}")
+            print(f"Total Score: {student.get_total_score()}\n")
